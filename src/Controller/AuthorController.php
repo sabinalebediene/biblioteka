@@ -16,6 +16,10 @@ class AuthorController extends AbstractController
      */
     public function index(Request $r): Response
     {
+
+        // tikrina, ar user'is prisijunges
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        
         // $authors = $this->getDoctrine()
         //     ->getRepository(Author::class)
         //     ->findAll();
@@ -78,6 +82,16 @@ class AuthorController extends AbstractController
      */
     public function store(Request $r, ValidatorInterface $validator): Response
     {   
+
+        // pradzioje tikriname ar viskas gerai su CSRF token'ais
+        $submittedToken = $r->request->get('token');
+
+        if ($this->isCsrfTokenValid('create_author', $submittedToken)) {
+            $r->getSession()->getFlashBag()->add('errors', 'Blogas token CSRF'); 
+            return $this->redirectToRoute('author_create');
+        }
+
+
         // susikuriam nauja autoriu
         $author = new Author;
 
