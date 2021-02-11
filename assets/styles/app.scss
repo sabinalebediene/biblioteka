@@ -2,3 +2,20 @@
 body {
     background-color: lightgray;
 }
+
+.list-group-item {
+    &__line {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+        span {
+            font-size: 24px;
+        }
+        &__buttons {
+            display: flex;
+            .btn {
+                margin: 7px;
+            }
+        }
+    }
+}

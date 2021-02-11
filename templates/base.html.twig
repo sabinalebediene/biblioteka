@@ -1,33 +1,33 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+	<head>
+		<meta charset="UTF-8">
+		<title>
+			{% block title %}Welcome!
+			{% endblock %}
+		</title>
 
-        <link href="http://localhost/biblioteka/public/build/app.css" rel="stylesheet"/>
+		<link href="http://localhost/biblioteka/public/build/app.css" rel="stylesheet"/>
 
-        <script src="http://localhost/biblioteka/public/build/app.js" defer></script>
+		<script src="http://localhost/biblioteka/public/build/app.js" defer></script>
 
-        {# <img src="{{asset('images/paveiksliukas.gif')}}">
-        <img src="{{path('get_image',{id:85547})}}"> #}
+		{# <img src="{{asset('images/paveiksliukas.gif')}}">
+				        <img src="{{path('get_image',{id:85547})}}"> #}
 
-        <!-- include summernote css/js -->
-        <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+		<!-- include summernote css/js -->
+		<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet"> {% block stylesheets %}{% endblock %}{% block javascripts %}{% endblock %}
+		</head>
+		<body>
+			{% if errors is defined and errors|length > 0 %}
+				{% include 'msg/validation.html.twig' %}
+			{% endif %}
 
-        {% block stylesheets %}{% endblock %}
+			{% if success is defined and success|length > 0 %}
+				{% include 'msg/success.html.twig' %}
+			{% endif %}
 
-        {% block javascripts %}{% endblock %}
-    </head>
-    <body>
-        {% if errors is defined and errors|length > 0 %}
-        {% include 'msg/validation.html.twig' %}
-        {% endif %}
-
-        {% if success is defined and success|length > 0 %}
-        {% include 'msg/success.html.twig' %}
-        {% endif %}
-
-
-        {% block body %}{% endblock %}
-    </body>
-</html>
+			{% include 'menu.html.twig' %}
+			<main class="py-4"> {% block body %}{% endblock %}
+				</main>
+			</body>
+		</html>

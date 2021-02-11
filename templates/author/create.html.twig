@@ -3,17 +3,36 @@
 {% block title %}Create new Author{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-    <h1>Create new Author ✅</h1>
-    <form action="{{path('author_store')}}" method="POST">
-        Name: <input type="text" name="author_name" value="{{author_name}}">
-        Surname: <input type="text" name="author_surname" value="{{author_surname}}">
-        <button type="submit">Add new Author</button>
+
+<div class="container">
+   <div class="row justify-content-center">
+       <div class="col-md-8">
+           <div class="card">
+               <div class="card-header"><h1>Create new Author ✅</h1></div>
+
+               <div class="card-body">
+                     <form action="{{path('author_store')}}" method="POST">
+                        <div class="form-group">
+                            <label>Name</label>
+                            <input type="text" name="author_name" class="form-control" value="{{author_name}}">
+                            <small class="form-text text-muted">Author name</small>
+                        </div>
+                        <div class="form-group">
+                            <label>Surname</label>
+                            <input type="text" name="author_surname" class="form-control" value="{{author_surname}}">
+                            <small class="form-text text-muted">Author surname</small>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Add new Author</button>
         
-        {# csrf token #}
-        <input type="hidden" name="token" value="{{ csrf_token('create_author') }}"/>
-    </form>
+                        {# csrf token #}
+                        <input type="hidden" name="token" value="{{ csrf_token('create_author') }}"/>
+                    </form>
+               </div>
+           </div>
+       </div>
+   </div>
+</div>
+    
 {% endblock %}
+
+
