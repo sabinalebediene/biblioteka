@@ -3,6 +3,17 @@
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
+
+        <link href="http://localhost/biblioteka/public/build/app.css" rel="stylesheet"/>
+
+        <script src="http://localhost/biblioteka/public/build/app.js" defer></script>
+
+        {# <img src="{{asset('images/paveiksliukas.gif')}}">
+        <img src="{{path('get_image',{id:85547})}}"> #}
+
+        <!-- include summernote css/js -->
+        <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+
         {% block stylesheets %}{% endblock %}
 
         {% block javascripts %}{% endblock %}
