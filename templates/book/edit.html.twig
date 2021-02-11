@@ -1,25 +1,41 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit new Book{% endblock %}
+{% block title %}Edit new Book
+{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-    <h1>Edit new Book ✅</h1>
-    <form action="{{path('book_update', {id: book.id})}}" method="POST">
-        Title: <input type="text" name="book_title" value= "{{book.title}}">
-        ISBN: <input type="text" name="book_isbn" value= "{{book.isbn}}">
-        Pages: <input type="text" name="book_pages" value= "{{book.pages}}">
-        About: <textarea name="book_about" id="summernote">{{book.about}}</textarea>
-        <select name="book_author_id">
-            {% for author in authors %}
-            <option value="{{author.id}}" {% if author.id == book.AuthorId %}selected {% endif %}>
-                {{author.name}} {{author.surname}}
-            </option>
-            {% endfor %}
-        </select>
-        <button type="submit">Edit Book</button>
-    </form>
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-md-8">
+				<div class="card">
+					<div class="card-header">
+						<h1>Edit new Book ✅</h1>
+					</div>
+
+					<div class="card-body">
+						<form action="{{path('book_update', {id: book.id})}}" method="POST">
+							Title:
+							<input type="text" name="book_title" value="{{book.title}}">
+							ISBN:
+							<input type="text" name="book_isbn" value="{{book.isbn}}">
+							Pages:
+							<input type="text" name="book_pages" value="{{book.pages}}">
+							About:
+							<textarea name="book_about" id="summernote">{{book.about}}</textarea>
+							<select name="book_author_id">
+								{% for author in authors %}
+									<option value="{{author.id}}" {% if author.id == book.AuthorId %} selected {% endif %}>
+										{{author.name}}
+										{{author.surname}}
+									</option>
+								{% endfor %}
+							</select>
+							<button type="submit">Edit Book</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
 {% endblock %}

@@ -19,3 +19,23 @@ body {
         }
     }
 }
+
+.btn-primary {
+    margin-top: 20px;
+}
+.form-check-input.custom {
+    margin-left: 10px;
+}
+
+.form-check.custom {
+    padding-left: 0;
+}
+
+form.sort-form {
+    display: flex;
+    align-content: center;
+    button {
+        height: 38px;
+        margin: 0 10px;
+    }
+}
