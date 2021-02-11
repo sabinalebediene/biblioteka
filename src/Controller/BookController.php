@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 use App\Entity\Author;
 use App\Entity\Book;
 
@@ -52,7 +53,7 @@ class BookController extends AbstractController
     /**
      * @Route("/book/create", name="book_create", methods={"GET"})
      */
-    public function create(): Response
+    public function create(Request $r): Response
     {
         $authors = $this->getDoctrine()
             ->getRepository(Author::class)
@@ -60,29 +61,50 @@ class BookController extends AbstractController
 
         return $this->render('book/create.html.twig', [
             'authors' => $authors,
+            'errors' => $r->getSession()->getFlashBag()->get('errors', [])
         ]);
     }
 
     /**
      * @Route("/book/store", name="book_store", methods={"POST"})
      */
-    public function store(Request $r): Response
+    public function store(Request $r, ValidatorInterface $validator): Response
     {   
 
         // paimam autoriu pagal jo ID, sukuriam
-        // setiname pati autoriu, duomenu baze padi uzpilde autoriaus ID, paemusi is cia
+        // setiname pati autoriu, duomenu baze pati uzpilde autoriaus ID, paemusi is cia
         $author = $this->getDoctrine()
         ->getRepository(Author::class)
         ->find($r->request->get('book_author_id'));
 
+        // autoriau validacija, jei jis nepaselectintas
+        if(null === $author) {
+            $r->getSession()->getFlashBag()->add('errors', 'Pasirink autorių');
+        }
 
         $book = new Book;
         $book
         ->setTitle($r->request->get('book_title'))
         ->setIsbn($r->request->get('book_isbn'))
-        ->setPages($r->request->get('book_pages'))
+        // casting - patys nusikastinam i int, del validacijos
+        ->setPages((int)$r->request->get('book_pages'))
         ->setAbout($r->request->get('book_about'))
         ->setAuthor($author);
+
+        // tikriname pagal assertus 
+        // validacija
+        $errors = $validator->validate($book);
+
+        // jei yra error, verciame i string ir ji graziname, parodo error'a
+        if (count($errors) > 0 || null === $author) {
+
+            foreach($errors as $error) {
+                $r->getSession()->getFlashBag()->add('errors', $error->getMessage());
+            }
+            $r->getSession()->getFlashBag()->add('book_author_id', $r->request->get('book_author_id'));
+            return $this->redirectToRoute('book_create');
+            
+        }
 
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($book);

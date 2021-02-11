@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\BookRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 
 /**
@@ -30,6 +31,7 @@ class Book
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\Positive(message="Ivesk puslapiu skaiciu")
      */
     private $pages;
 
