@@ -78,18 +78,18 @@ class AuthorController extends AbstractController
     }
 
     /**
-     * @Route("/author/store", name="author_store", methods={"POST"}))
+     * @Route("/author/store", name="author_store", methods={"POST"})
      */
     public function store(Request $r, ValidatorInterface $validator): Response
     {   
 
         // pradzioje tikriname ar viskas gerai su CSRF token'ais
-        $submittedToken = $r->request->get('token');
+        // $submittedToken = $r->request->get('token');
 
-        if ($this->isCsrfTokenValid('create_author', $submittedToken)) {
-            $r->getSession()->getFlashBag()->add('errors', 'Blogas token CSRF'); 
-            return $this->redirectToRoute('author_create');
-        }
+        // if ($this->isCsrfTokenValid('create_author_bla', $submittedToken)) {
+        //     $r->getSession()->getFlashBag()->add('errors', 'Blogas token CSRF'); 
+        //     return $this->redirectToRoute('author_create');
+        // }
 
 
         // susikuriam nauja autoriu

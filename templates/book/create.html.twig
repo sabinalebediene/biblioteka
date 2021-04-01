@@ -27,18 +27,19 @@
 								<small class="form-text text-muted">Book pages</small>
 							</div>
 							<div class="form-group">
+								<label>About</label>
 								<textarea name="book_about" id="summernote"></textarea>
-								<small class="form-text text-muted">About</small>
 							</div>
-
-							<select name="book_author_id">
-								<option value="0">Select author</option>
-								{% for author in authors %}
-									<option value="{{author.id}}">{{author.name}}
-										{{author.surname}}</option>
-								{% endfor %}
-							</select>
-							<button type="submit" class="btn  btn-primary">Add new Book</button>
+							<div class="form-group">
+								<select name="book_author_id" class="form-control">
+									<option value="0">Select author</option>
+									{% for author in authors %}
+										<option value="{{author.id}}">{{author.name}}
+											{{author.surname}}</option>
+									{% endfor %}
+								</select>
+							</div>
+							<button type="submit" class="btn btn-dark">Add new Book</button>
 						</form>
 					</div>
 				</div>
